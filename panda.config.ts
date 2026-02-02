@@ -5,7 +5,7 @@ export default defineConfig({
   preflight: true,
 
   // Where to look for your css declarations
-  include: ['./src/**/*.{ts,tsx,js,jsx}'],
+  include: ["./src/**/*.{ts,tsx,js,jsx}"],
 
   // Files to exclude
   exclude: [],
@@ -17,6 +17,10 @@ export default defineConfig({
         fonts: {
           body: { value: "var(--font-source-sans), sans-serif" },
           editorial: { value: "var(--font-merriweather), serif" },
+        },
+        spacing: {
+          "button.x": { value: "1.875rem" },
+          "button.y": { value: "0.5rem" },
         },
         colors: {
           brand: {
