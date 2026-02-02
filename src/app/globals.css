@@ -1,1 +1,8 @@
 @layer reset, base, tokens, recipes, utilities;
+
+@layer tokens {
+  body {
+    --fonts-body: var(--font-source-sans), sans-serif;
+    --fonts-editorial: var(--font-merriweather), serif;
+  }
+}

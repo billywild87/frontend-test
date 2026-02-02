@@ -1,9 +1,9 @@
 "use server";
 
-import React from "react";
+import { redirect } from "next/navigation";
 
 const page = () => {
-  return <div>This is a default page</div>;
+  redirect("/newsletters");
 };
 
 export default page;

@@ -1,5 +1,6 @@
 import { Merriweather, Source_Sans_3 } from "next/font/google";
 
+import { css } from "@/styled-system/css";
 import { Metadata } from "next";
 import "./globals.css";
 
@@ -36,6 +37,12 @@ export const metadata: Metadata = {
   },
 };
 
+const main = css({
+  maxWidth: "1200px",
+  marginInline: "auto",
+  padding: "4",
+});
+
 export default function RootLayout({
   children,
 }: {
@@ -44,7 +51,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={`${sourceSans.className} ${merriweather.variable}`}>
-        {children}
+        <main className={main}>{children}</main>
       </body>
     </html>
   );
