@@ -13,5 +13,26 @@ export const fr = {
       title: "Aucune newsletter disponible",
       description: "Revenez plus tard pour découvrir nos newsletters.",
     },
+    scenario: {
+      all: "Toutes",
+      empty: "Vide",
+      error: "Erreur",
+    },
+  },
+  user: {
+    scenario: {
+      none: "Sans abo",
+      one: "1 abo",
+      multi: "Multi",
+    },
+  },
+  dev: {
+    drawer: {
+      title: "Dev Tools",
+      section: {
+        userScenario: "User Scenario",
+        newsletterScenario: "Newsletter Scenario",
+      },
+    },
   },
 } as const;
