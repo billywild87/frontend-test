@@ -1,67 +1,226 @@
-# Getting started
+# Présentation du projet
 
-Hello there, you are a new recruit in our frontend team at Les Echos, and your first task is to implement our newsletter page.
+Ce document décrit les choix fonctionnels et techniques réalisés dans le cadre de ce projet, ainsi que les principes d’architecture et d’implémentation adoptés.
 
-You can find the design on our [figma](https://www.figma.com/file/u1hoAP9FOa1FHbBgkE346o/Entretient-Dev-2024?type=design&node-id=1-309&mode=design)
+---
 
-# Disclaimer
+## 🚀 Lancer le projet
 
-Our evaluation focuses on your problem-solving approach and mindset, observing how you tackle challenges and prioritize tasks.
+Ce projet est une application **Next.js 14** majoritairement orientée **Server Components / SSR**, utilisant **Panda CSS** pour le styling et une stack de tests basée sur **Jest** et **React Testing Library**.
 
-During the interview, explain your decisions and how you'd approach unfinished tasks with you had more time.
+### Prérequis
 
-It's your thought process and strategy, rather than completion, that we're interested in.
+- **Node.js** ≥ 18
+- **npm**
 
-Please do code as you were already a part of our frontend team, it is essential to us.
+### Installation
 
-You have to use NextJS, wether it is the latest version (app router), or if you don't feel comfortable with it, use the pages router.
+```bash
+npm install
+```
 
-# What is your mission ?
+### Démarrage en développement
 
-## Styling
+```bash
+npm run dev
+```
 
-Regardless of point 1 and 2, the page should be responsive.
+L’application sera accessible à l’adresse suivante :  
+👉 http://localhost:3000
 
-1. Implement the styling using what you like to use (chakra-ui, material-ui or something else)
-2. Implement the styling yourself, using the library of your choice (we are using styled-components and pandaCSS for instance)
+### Build et exécution en production
 
-:warning: We are not asking for a pixel perfect copy of the figma, we just wanted to gave you a direction on where to go, it does not have to be the exact same thing really, surprise us :warning:
+```bash
+npm run build
+npm run start
+```
 
-## Features
+### Linting
 
-The current user will be representated by 3 different mock (`USER_WITH_ONE_SUBSCRIPTION`, `USER_WITH_MULTIPLE_SUBSCRIPTION`, `USER_WITHOUT_SUBSCRIPTION`), you can find these at `src/mocks/user.ts`.
+```bash
+npm run lint
+```
 
-What you need to look at is the `subscriptions` key, it represent the subscriptions that the user currently have active.
+### Tests
 
-:warning: The app should be working with all these 3 types of profile in mind. :warning:
+- Lancer tous les tests :
 
-## Implement a list of newsletters, grouped by site.
+```bash
+npm run test
+```
 
-You can find mocks of the items in `src/mocks/newsletters.ts`, you have to display the list of all the newsletters, but grouped by the `site` key.
+- Mode watch :
 
-## The CTA must be different regarding the user's status
+```bash
+npm run test:watch
+```
 
-In every newsletter object, you have a key `subscriptions`, which is an array of strings, it represents the right needed to access this newsletter.
+- Générer la couverture de tests :
 
-If the field is an empty array, it means the newsletter can be accessed by everyone, otherwise, the user should have at least of the right listed in the array.
+```bash
+npm run test:coverage
+```
 
-The label of the CTA (call to action) will be `S'inscrire` if the user has access to it, otherwise `S'abonner`
+---
 
-## Everything should be typed
+## 1. Conception et roadmap
 
-Everything has to be typed with typescript, show us what you can do !
+Le projet a été **conceptualisé en amont**, à la fois sur les plans **fonctionnel** et **technique**, afin de :
 
-## The newsletter should come from a fetching function
+- Clarifier les choix d’implémentation
+- Anticiper les contraintes techniques
+- Définir une **roadmap de développement claire et maîtrisée**
 
-Even if we don't provide an API to call, you have to simulate the fetching.
-Also, the app should work in SSR.
+Les commits suivent une convention de nommage explicite : `[FRONTEND-TEST] - N° - Description`, reflétant les étapes de la roadmap définie en amont.
 
-# Time
+Cette phase de conception permet de limiter les décisions improvisées et de garantir une cohérence globale du projet.
 
-Take around 4 hours to do this test, we really respect your time and don't want you to spend days on this.
+---
 
-# Final word
+## 2. Rendu et stratégie Next.js
 
-Good luck and again, please do this as you were already an developer in our team.
+Le projet repose sur **Next.js**, avec une volonté assumée de privilégier le **Server-Side Rendering (SSR)** au maximum.
 
-If you have any question feel free to contact us and we will quickly respond
+- La majorité des composants sont des **Server Components**
+- Les **Client Components** sont volontairement rares et uniquement utilisés lorsque nécessaire
+
+---
+
+## 3. Architecture feature-based
+
+L’architecture du projet suit une **convention feature-based**, organisée autour de trois grandes parties :
+
+- `app`
+- `features`
+- `shared`
+
+Les domaines fonctionnels sont séparés en **Newsletter** et **User**.
+
+---
+
+## 4. Styling avec Panda CSS
+
+Le projet utilise **Panda CSS** comme solution de styling utilitaire, proche de **Tailwind CSS**, avec des styles typés et générés statiquement.
+
+---
+
+## 5. Scénarios et devtool intégré
+
+Un **devtool intégré** permet de sélectionner des scénarios liés aux newsletters et aux abonnements utilisateurs afin de tester les comportements applicatifs.
+
+---
+
+## 6. Composants purs et composants métier
+
+Les composants UI purs (`Button`, `Card`) sont séparés des composants métier (`NewsletterCard`).  
+Le composant `Card` agit comme un wrapper générique.
+
+---
+
+## 7. Gestion du loading et skeletons
+
+Des **skeletons** sont utilisés pour représenter les temps de chargement, notamment via une fonction utilitaire `sleep` et React Suspense.
+
+---
+
+## 8. Choix pragmatiques
+
+Certaines fonctions utilitaires comme `groupBy` ont été implémentées manuellement afin d’éviter des dépendances inutiles.
+
+---
+
+## 9. Tests
+
+Stack de tests :
+
+- Jest
+- React Testing Library
+
+Les tests sont organisés avec des blocs `describe` et utilisent des **fixtures prédéfinies**.
+
+---
+
+## 10. TypeScript avancé
+
+- Mode strict activé
+- Utilisation de **branded types** (`NewsletterId`, `UserId`, `Email`)
+
+---
+
+## 11. Internationalisation
+
+Système d’i18n centralisé avec structure imbriquée et `as const` pour l’autocomplétion TypeScript.
+
+---
+
+## 12. Gestion des erreurs
+
+- `error.tsx` : error boundary serveur
+- `not-found.tsx` : page 404 personnalisée
+
+Le retry réinitialise l’état du scénario.
+
+---
+
+## 13. React Suspense
+
+Utilisation de Suspense avec fallbacks skeleton et clé dynamique pour forcer le rechargement lors d’un changement de scénario.
+
+---
+
+## 14. Server Actions
+
+Les Server Actions permettent de changer les scénarios du devtool : le choix est stocké dans un cookie et la page est revalidée pour appliquer le nouveau scénario. Les query params auraient également été une alternative viable.
+
+---
+
+## 15. Qualité de code
+
+- ESLint (`next/core-web-vitals`)
+- Prettier
+
+---
+
+## 16. Barrel exports
+
+Utilisation de fichiers `index.ts` pour centraliser les exports par feature.
+
+---
+
+## 17. Services
+
+Les services exposent une API claire :
+
+- `newsletterService.list()`
+- `userService.getCurrent()`
+
+---
+
+## 18. Services mock-aware
+
+Les services vérifient si les mocks sont activés via `isMockEnabled()` afin de basculer facilement entre mock et API réelle.
+
+---
+
+## 19. Séparation fetching / métier
+
+- Services : fetching
+- Helpers : logique métier, type guards et règles d’accès
+
+La fonction `hasAccessToNewsletter` autorise l’accès libre si aucune restriction n’est définie.
+
+---
+
+## 20. Améliorations possibles
+
+Avec plus de temps, les évolutions suivantes auraient été envisagées :
+
+- **Tests e2e** : mise en place de Playwright ou Cypress pour valider les parcours utilisateur
+- **Gestion d'erreurs enrichie** : try/catch plus robustes dans les services, error boundaries plus granulaires
+- **UI/UX** : animations, transitions et polish visuel pour une expérience plus fluide
+
+---
+
+## Conclusion
+
+Le projet met l'accent sur une architecture claire, des choix techniques assumés.
