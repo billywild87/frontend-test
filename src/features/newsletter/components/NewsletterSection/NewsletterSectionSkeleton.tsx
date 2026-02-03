@@ -1,6 +1,6 @@
 import { Skeleton } from "@/shared/components/ui";
 import { NewsletterCardSkeleton } from "../NewsletterCard/NewsletterCardSkeleton";
-import { section, header, grid } from "./newsletterSection.styles";
+import { grid, header, section } from "./newsletterSection.styles";
 
 type Props = {
   cardCount?: number;

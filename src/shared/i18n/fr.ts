@@ -1,4 +1,16 @@
 export const fr = {
+  common: {
+    error: {
+      title: "Une erreur est survenue",
+      description: "Impossible de charger les données. Veuillez réessayer.",
+      retry: "Réessayer",
+    },
+    notFound: {
+      title: "Page introuvable",
+      description: "La page que vous recherchez n'existe pas.",
+      backHome: "Retour à l'accueil",
+    },
+  },
   newsletter: {
     page: {
       title: "NEWSLETTERS",
@@ -12,6 +24,10 @@ export const fr = {
     empty: {
       title: "Aucune newsletter disponible",
       description: "Revenez plus tard pour découvrir nos newsletters.",
+    },
+    error: {
+      title: "Erreur de chargement",
+      description: "Impossible de charger les newsletters. Veuillez réessayer.",
     },
     scenario: {
       all: "Toutes",
