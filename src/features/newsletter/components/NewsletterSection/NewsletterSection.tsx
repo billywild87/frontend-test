@@ -1,14 +1,8 @@
 import { Site, SubscriptionRight } from "@/shared/types";
-import { Newsletter } from "../../types";
 import { hasAccessToNewsletter } from "../../services/newsletter.helpers";
+import { Newsletter } from "../../types";
 import { NewsletterCard } from "../NewsletterCard/NewsletterCard";
-import {
-  section,
-  header,
-  title,
-  count,
-  grid,
-} from "./newsletterSection.styles";
+import { grid, header, section, title } from "./newsletterSection.styles";
 
 interface Props {
   site: Site;
@@ -23,7 +17,6 @@ export function NewsletterSection({ site, items, userSubscriptions }: Props) {
     <section className={section}>
       <header className={header}>
         <h2 className={title}>{site}</h2>
-        <span className={count}>{items.length}</span>
       </header>
 
       <div className={grid}>
